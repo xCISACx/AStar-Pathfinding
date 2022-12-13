@@ -6,13 +6,10 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-    // The grid is the game map on which the units move.
     private Grid _grid;
-
-    // The start node is the starting position of the unit.
+    
     private Node _startNode;
-
-    // The target node is the destination that the unit is trying to reach.
+    
     private Node _targetNode;
 
     // The open set is a list of nodes that have been discovered but not yet evaluated.
@@ -24,18 +21,11 @@ public class Pathfinding : MonoBehaviour
     // The came from dictionary is used to store the previous node in the path for each node.
     private Dictionary<Node, Node> _cameFrom;
 
-    // The g score is the cost of getting from the start node to the current node.
-    private Dictionary<Node, float> _gScore;
-
-    // The f score is the estimated cost of getting from the start node to the target node through the current node.
-    private Dictionary<Node, float> _fScore;
-
     public Vector3 MousePosition;
     
     public List<Node> PathToFollow;
     
     public List<Vector3> PathPositions;
-    public LineRenderer ALineRenderer;
 
     public PlayerUnit Unit;
 
@@ -65,9 +55,7 @@ public class Pathfinding : MonoBehaviour
             }
             
             // Stop the already running co-routine if one exists and start a new one
-            /*StopCoroutine(FindPath());
-            StartCoroutine(FindPath());*/
-            
+
             if (_findPathCoroutine != null)
             {
                 StopCoroutine(_findPathCoroutine);   
@@ -87,9 +75,6 @@ public class Pathfinding : MonoBehaviour
                 }
                 
                 _followPathCoroutine = StartCoroutine(Unit.FollowPath(PathToFollow));
-                
-                //StopCoroutine(Unit.FollowPath(PathToFollow));
-                //StartCoroutine(Unit.FollowPath(PathToFollow));
             }
             else
             {
@@ -213,8 +198,6 @@ public class Pathfinding : MonoBehaviour
             var node = PathToFollow[index];
             
             PathPositions.Add(new Vector3(node.position.x, 1.2f, node.position.z));
-            /*ALineRenderer.positionCount = PathPositions.Count;
-            ALineRenderer.SetPositions(PathPositions.ToArray());*/
         }
         
         _grid.DrawPath();

@@ -28,8 +28,6 @@ public class Grid : MonoBehaviour
     public CameraPlacer Camera;
     public PlayerUnit Unit;
 
-    public bool ShowGrid;
-
     public Transform GridQuadParent;
 
     public Transform PathParent;
@@ -43,11 +41,6 @@ public class Grid : MonoBehaviour
     private void Awake()
     {
         CreateGrid();
-
-        /*if (ShowGrid)
-        {
-            DrawGrid();
-        }*/
 
         DrawGridQuads();
 
@@ -250,38 +243,6 @@ public class Grid : MonoBehaviour
         }
     }
 
-    /*public void DrawGrid()
-    {
-        Vector3 forward = transform.forward;
-        forward.y = 0;
-        forward = forward.normalized;
-        Vector3 right = transform.right;
-
-        Vector3 origin = new Vector3((CellSize / 2f + CellSize/2f) + transform.position.x, 0, (CellSize / 2f + CellSize/2f) + transform.position.z);
-
-        // Draw the horizontal grid lines
-        for (int y = 0; y <= height; y++)
-        {
-            Vector3 start =
-                origin - new Vector3(CellSize, 0, 0); // position of the origin - half a cell on the z
-            start.z += (y - CellSize/2f) * CellSize; // gradually increase the Y position taking into the account cell size
-            Vector3 end = start + right * width * CellSize; //direction of the lines
-            
-            Debug.DrawLine(start, end, Color.blue, Mathf.Infinity, false);
-        }
-
-        // Draw the vertical grid lines
-        for (int x = 0; x <= width; x++)
-        {
-            Vector3 start =
-                origin - new Vector3(0, 0, CellSize); // position of the origin - half a cell on the x
-            start.x += (x - CellSize/2f) * CellSize; // gradually increase the Y position taking into the account cell size
-            Vector3 end = start + forward * height * CellSize; //direction of the lines
-            
-            Debug.DrawLine(start, end, Color.blue, Mathf.Infinity, false);
-        }
-    }*/
-
     public void DrawPath()
     {
         if (_nodes != null)
@@ -295,7 +256,7 @@ public class Grid : MonoBehaviour
                 {
                     if (pathToFollow.Contains(n))
                     {
-                        DrawGridQuadAtPosition(n.gridX, n.gridY, GroundY, Color.yellow, PathParent, true);
+                        DrawGridQuadAtPosition(n.gridX, n.gridY, PathY, Color.yellow, PathParent, true);
                     }
                 }
             }
